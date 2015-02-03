@@ -80,67 +80,113 @@ describe("About Applying What We Have Learnt", function() {
       return x + y;
     });
 
-  /* try chaining range() and reduce() */
+    /* try chaining range() and reduce() */
 
-  expect(233168).toBe(sum);
-});
+    expect(233168).toBe(sum);
+  });
 
-/*********************************************************************************/
-it("should count the ingredient occurrence (imperative)", function() {
-  var ingredientCount = {
-    "{ingredient name}": 0
-  };
+  /*********************************************************************************/
+  it("should count the ingredient occurrence (imperative)", function() {
+    var ingredientCount = {
+      "{ingredient name}": 0
+    };
 
-  for (i = 0; i < products.length; i += 1) {
-    for (j = 0; j < products[i].ingredients.length; j += 1) {
-      ingredientCount[products[i].ingredients[j]] = (ingredientCount[products[i].ingredients[j]] || 0) + 1;
+    for (i = 0; i < products.length; i += 1) {
+      for (j = 0; j < products[i].ingredients.length; j += 1) {
+        ingredientCount[products[i].ingredients[j]] = (ingredientCount[products[i].ingredients[j]] || 0) + 1;
+      }
     }
-  }
 
-  expect(ingredientCount['mushrooms']).toBe(2);
-});
+    expect(ingredientCount['mushrooms']).toBe(2);
+  });
 
-it("should count the ingredient occurrence (functional)", function() {
-var ingredientCount = {
-  "{ingredient name}": 0
-};
+  it("should count the ingredient occurrence (functional)", function() {
+    var ingredientCount = {
+      "{ingredient name}": 0
+    };
 
-_(products).chain()
-                .map(function(pizza) {return pizza.ingredients;})
-                .flatten()
-               //  .reduce(function(memo, ingredient) {
-               //    memo[ingredient] ? memo[ingredient] += 1 : memo[ingredient] = 1;
-               //    return memo;
-               //    }, ingredientCount)
-                .each(function(ingredient){
-                  ingredientCount[ingredient] ? ingredientCount[ingredient] += 1 : ingredientCount[ingredient] = 1; })
-                .value();
+    _(products).chain()
+      .map(function(pizza) {
+        return pizza.ingredients;
+      })
+      .flatten()
+      //  .reduce(function(memo, ingredient) {
+      //    memo[ingredient] ? memo[ingredient] += 1 : memo[ingredient] = 1;
+      //    return memo;
+      //    }, ingredientCount)
+      .each(function(ingredient) {
+        ingredientCount[ingredient] ? ingredientCount[ingredient] += 1 : ingredientCount[ingredient] = 1;
+      })
+      .value();
 
-/* chain() together map(), flatten() and reduce() */
+    /* chain() together map(), flatten() and reduce() */
 
-expect(ingredientCount['mushrooms']).toBe(2);
-});
+    expect(ingredientCount['mushrooms']).toBe(2);
+  });
 
-/*********************************************************************************/
- // UNCOMMENT FOR EXTRA CREDIT
+  /*********************************************************************************/
+  // UNCOMMENT FOR EXTRA CREDIT
 
-  // it("should find the largest prime factor of a composite number", function () {
+  it("should find the largest prime factor of a composite number", function() {
+    var composite = 3;
+    var compositePlus = composite + 1;
+
+    var divisors = _.range(1, compositePlus);
+
+    var divide = _.filter(divisors, function(a) {
+      if (composite % a === 0) {
+        return a;
+      }
+    }, {});
+
+  });
+
   //
-  // });
-  //
-  // it("should find the largest palindrome made from the product of two 3 digit numbers", function () {
-  //
-  // });
+  it("should find the largest palindrome made from the product of two 3 digit numbers", function() {
+
+    var arr = [];
+    for (var i = 999; i > 100; i--) {
+      for (var j = 999; j > 100; j--) {
+        var mul = j * i;
+        if (isPalin(mul)) {
+          arr.push(j * i);
+        }
+      }
+      
+      return Math.max.apply(Math, arr);
+    }
+
+    function isPalin(i) {
+      return i.toString() == i.toString().split("").reverse().join("");
+    }
+
+  });
   //
   // it("should find the smallest number divisible by each of the numbers 1 to 20", function () {
   //
   //
   // });
-  //
-  // it("should find the difference between the sum of the squares and the square of the sums", function () {
-  //
-  // });
-  //
+
+  it("should find the difference between the sum of the squares and the square of the sums", function() {
+
+    var nums = [2, 6, 7, 8];
+
+    var sumOfSquares = _(nums).chain()
+      .map(function(a) {
+        return a * a;
+      })
+      .reduce(function(a, b) {
+        return a + b
+      })
+      .value();
+
+    var squareOfSums = Math.pow(_.reduce(nums, function(a) {
+      return a + a;
+    }), 2);
+
+    var diff = sumOfSquares / squareOfSums;
+  });
+
   // it("should find the 10001st prime", function () {
   //
   // });
