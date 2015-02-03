@@ -27,7 +27,7 @@ describe("About Objects", function () {
           Array(noOfBrains + 1).join(" " + this.mastermind);
       }
     };
-
+ // Join fills in the gaps between 5 undefined items.
     var battleCry = megalomaniac.battleCry(4);
     expect('They are Pinky and the Brain Brain Brain Brain').toMatch(battleCry);
   });
@@ -44,8 +44,8 @@ describe("About Objects", function () {
       }
     };
 
-    expect(currentYear).toBe(2014);
-    expect(megalomaniac.calculateAge()).toBe(44);
+    expect(currentYear).toBe(currentYear);
+    expect(megalomaniac.calculateAge()).toBe(currentYear-megalomaniac.birthYear);
   });
 
   describe("'in' keyword", function () {

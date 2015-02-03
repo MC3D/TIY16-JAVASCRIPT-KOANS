@@ -23,18 +23,25 @@ describe("About Functions", function() {
 
     expect(getMessage()).toBe('Outer');
     expect(overrideMessage()).toBe('Inner');
+  // will look for outer variable 'message'; will return undefined if variable is not found
     expect(message).toBe('Outer');
   });
 
   it("should have lexical scoping", function () {
+  // lexical scoping (static scoping): variable may only be called from within the block
+  // of code in which it is defined
+  // dynamic scope defines global variables
     var variable = "top-level";
+
     function parentfunction() {
       var variable = "local";
       function childfunction() {
         return variable;
       }
+  // will return 'top-level'
       return childfunction();
     }
+
     expect(parentfunction()).toBe('local');
   });
 
@@ -51,7 +58,10 @@ describe("About Functions", function() {
 
     var mysteryFunction3 = makeMysteryFunction(3);
     var mysteryFunction5 = makeMysteryFunction(5);
-
+ // mysteryFunction3 = 3
+ // mysteryFunction5 = 5
+ // the second value, e.g. (10), is taken as the first input
+ // makeMysteryFunction(3)(10) == 13
     expect(mysteryFunction3(10) + mysteryFunction5(5)).toBe(23);
   });
 
@@ -68,7 +78,7 @@ describe("About Functions", function() {
     }
 
     expect(returnSecondArg("only give first arg")).toBe(undefined);
-
+ //
     function returnAllArgs() {
       var argsArray = [];
       for (var i = 0; i < arguments.length; i += 1) {
