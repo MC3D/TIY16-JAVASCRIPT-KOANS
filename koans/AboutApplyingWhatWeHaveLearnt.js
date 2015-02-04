@@ -32,6 +32,25 @@ describe("About Applying What We Have Learnt", function() {
 
   it("given I'm allergic to nuts and hate mushrooms, it should find a pizza I can eat (imperative)", function() {
 
+    var i, j, hasMushrooms, productsICanEat = [];
+
+    for (i = 0; i < products.length; i += 1) {
+      if (products[i].containsNuts === false) {
+        hasMushrooms = false;
+        for (j = 0; j < products[i].ingredients.length; j += 1) {
+          if (products[i].ingredients[j] === "mushrooms") {
+            hasMushrooms = true;
+          }
+        }
+        if (!hasMushrooms) productsICanEat.push(products[i]);
+      }
+    }
+
+    expect(productsICanEat.length).toBe(1);
+  });
+
+  it("given I'm allergic to nuts and hate mushrooms, it should find a pizza I can eat (functional)", function() {
+
     var productsICanEat = [];
 
     productsICanEat = _.filter(products, function(pizza){
@@ -48,30 +67,7 @@ describe("About Applying What We Have Learnt", function() {
     //   });
     // });
 
-    // var i, j, hasMushrooms, productsICanEat = [];
-    //
-    // for (i = 0; i < products.length; i += 1) {
-    //   if (products[i].containsNuts === false) {
-    //     hasMushrooms = false;
-    //     for (j = 0; j < products[i].ingredients.length; j += 1) {
-    //       if (products[i].ingredients[j] === "mushrooms") {
-    //         hasMushrooms = true;
-    //       }
-    //     }
-    //     if (!hasMushrooms) productsICanEat.push(products[i]);
-    //   }
-    // }
-
     expect(productsICanEat.length).toBe(1);
-  });
-
-  it("given I'm allergic to nuts and hate mushrooms, it should find a pizza I can eat (functional)", function() {
-
-    var productsICanEat = [];
-
-    /* solve using filter() & all() / any() */
-
-    expect(productsICanEat.length).toBe(0);
   });
 
   /*********************************************************************************/
@@ -146,41 +142,41 @@ describe("About Applying What We Have Learnt", function() {
 
   // Sara's Example
 
-  it("should find the largest prime factor of a composite number", function() {
-    var composite = 3;
-    var compositePlus = composite + 1;
-
-    var divisors = _.range(1, compositePlus);
-
-    var divide = _.filter(divisors, function(a) {
-      if (composite % a === 0) {
-        return a;
-      }
-    }, {});
-
-  });
+  // it("should find the largest prime factor of a composite number", function() {
+  //   var composite = 3;
+  //   var compositePlus = composite + 1;
+  //
+  //   var divisors = _.range(1, compositePlus);
+  //
+  //   var divide = _.filter(divisors, function(a) {
+  //     if (composite % a === 0) {
+  //       return a;
+  //     }
+  //   }, {});
+  //
+  // });
 
   //
-  it("should find the largest palindrome made from the product of two 3 digit numbers", function() {
-    // A palindrome is a word, phrase, number, or other sequence of characters which reads the same backwards or forward
-
-    var arr = [];
-    for (var i = 999; i > 100; i--) {
-      for (var j = 999; j > 100; j--) {
-        var mul = j * i;
-        if (isPalin(mul)) {
-          arr.push(j * i);
-        }
-      }
-
-      return Math.max.apply(Math, arr);
-    }
-
-    function isPalin(i) {
-      return i.toString() == i.toString().split('').reverse().join('');
-    }
-
-  });
+  // it("should find the largest palindrome made from the product of two 3 digit numbers", function() {
+  //   // A palindrome is a word, phrase, number, or other sequence of characters which reads the same backwards or forward
+  //
+  //   var arr = [];
+  //   for (var i = 999; i > 100; i--) {
+  //     for (var j = 999; j > 100; j--) {
+  //       var mul = j * i;
+  //       if (isPalin(mul)) {
+  //         arr.push(j * i);
+  //       }
+  //     }
+  //
+  //     return Math.max.apply(Math, arr);
+  //   }
+  //
+  //   function isPalin(i) {
+  //     return i.toString() == i.toString().split('').reverse().join('');
+  //   }
+  //
+  // });
 
   //  Mathieu Agopian's Example
 
@@ -212,25 +208,25 @@ describe("About Applying What We Have Learnt", function() {
 
   // Jonathan's Example
 
-  it("should find the difference between the sum of the squares and the square of the sums", function() {
-
-    var nums = [2, 3, 4, 5];
-
-    var sumOfSquares = _(nums).chain()
-      .map(function(a) {
-        return a * a;
-      })
-      .reduce(function(a, b) {
-        return a + b
-      })
-      .value();
-
-    var squareOfSums = Math.pow(_.reduce(nums, function(a) {
-      return a + a;
-    }), 2);
-
-    var diff = sumOfSquares / squareOfSums;
-  });
+  // it("should find the difference between the sum of the squares and the square of the sums", function() {
+  //
+  //   var nums = [2, 3, 4, 5];
+  //
+  //   var sumOfSquares = _(nums).chain()
+  //     .map(function(a) {
+  //       return a * a;
+  //     })
+  //     .reduce(function(a, b) {
+  //       return a + b
+  //     })
+  //     .value();
+  //
+  //   var squareOfSums = Math.pow(_.reduce(nums, function(a) {
+  //     return a + a;
+  //   }), 2);
+  //
+  //   var diff = sumOfSquares / squareOfSums;
+  // });
 
   // it("should find the 10001st prime", function() {
 
