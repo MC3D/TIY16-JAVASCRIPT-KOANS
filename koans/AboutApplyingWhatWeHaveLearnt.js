@@ -32,19 +32,35 @@ describe("About Applying What We Have Learnt", function() {
 
   it("given I'm allergic to nuts and hate mushrooms, it should find a pizza I can eat (imperative)", function() {
 
-    var i, j, hasMushrooms, productsICanEat = [];
+    var productsICanEat = [];
 
-    for (i = 0; i < products.length; i += 1) {
-      if (products[i].containsNuts === false) {
-        hasMushrooms = false;
-        for (j = 0; j < products[i].ingredients.length; j += 1) {
-          if (products[i].ingredients[j] === "mushrooms") {
-            hasMushrooms = true;
-          }
-        }
-        if (!hasMushrooms) productsICanEat.push(products[i]);
-      }
-    }
+    productsICanEat = _.filter(products, function(pizza){
+      return !pizza.containsNuts && !_.any(pizza.ingredients,function(ingredient){
+        return ingredient === 'mushrooms';
+      });
+    });
+
+    // Erik's example using _.all
+
+    // productsICanEat = _.filter(products, function(pizza){
+    //   return !pizza.containsNuts && _.all(pizza.ingredients,function(ingredient){
+    //     return ingredient != 'mushrooms';
+    //   });
+    // });
+
+    // var i, j, hasMushrooms, productsICanEat = [];
+    //
+    // for (i = 0; i < products.length; i += 1) {
+    //   if (products[i].containsNuts === false) {
+    //     hasMushrooms = false;
+    //     for (j = 0; j < products[i].ingredients.length; j += 1) {
+    //       if (products[i].ingredients[j] === "mushrooms") {
+    //         hasMushrooms = true;
+    //       }
+    //     }
+    //     if (!hasMushrooms) productsICanEat.push(products[i]);
+    //   }
+    // }
 
     expect(productsICanEat.length).toBe(1);
   });
@@ -127,6 +143,9 @@ describe("About Applying What We Have Learnt", function() {
   /*********************************************************************************/
   // UNCOMMENT FOR EXTRA CREDIT
 
+
+  // Sara's Example
+
   it("should find the largest prime factor of a composite number", function() {
     var composite = 3;
     var compositePlus = composite + 1;
@@ -143,6 +162,7 @@ describe("About Applying What We Have Learnt", function() {
 
   //
   it("should find the largest palindrome made from the product of two 3 digit numbers", function() {
+    // A palindrome is a word, phrase, number, or other sequence of characters which reads the same backwards or forward
 
     var arr = [];
     for (var i = 999; i > 100; i--) {
@@ -152,24 +172,49 @@ describe("About Applying What We Have Learnt", function() {
           arr.push(j * i);
         }
       }
-      
+
       return Math.max.apply(Math, arr);
     }
 
     function isPalin(i) {
-      return i.toString() == i.toString().split("").reverse().join("");
+      return i.toString() == i.toString().split('').reverse().join('');
     }
 
   });
+
+  //  Mathieu Agopian's Example
+
+  //   var palindrome = 0;
+  //
+  //   function is_palindrome(x) {
+  //     str_num = "" + x;
+  //     reversed = str_num.split("").reverse().join("");
+  //     return str_num === reversed;
+  //   }
+  //   for (var i = 999; i > 99; i--) {
+  //     for (var j = 999; j > 99; j--) {
+  //       var num = i * j;
+  //       if (num < palindrome) {
+  //         break;
+  //       }
+  //       if (is_palindrome(num)) {
+  //         palindrome = num;
+  //       }
+  //     }
+  //   }
+  //   expect(palindrome).toBe(906609);
+  // });
   //
   // it("should find the smallest number divisible by each of the numbers 1 to 20", function () {
   //
   //
   // });
 
+  // Jonathan's Example
+
   it("should find the difference between the sum of the squares and the square of the sums", function() {
 
-    var nums = [2, 6, 7, 8];
+    var nums = [2, 3, 4, 5];
 
     var sumOfSquares = _(nums).chain()
       .map(function(a) {
@@ -187,8 +232,15 @@ describe("About Applying What We Have Learnt", function() {
     var diff = sumOfSquares / squareOfSums;
   });
 
-  // it("should find the 10001st prime", function () {
+  // it("should find the 10001st prime", function() {
+
+  //   var prime
   //
+  //   for (var i = 0; i < 10001; ++i) {
+  //     if (i.isPrime) {
+  //       prime = i
+  //     }
+  //   };
   // });
 
 });
