@@ -1,110 +1,113 @@
-describe("About Functions", function() {
+/* globals describe, it, expect */
 
-  it("should declare functions", function() {
+(function() {
+  'use strict';
 
-    function add(a, b) {
-      return a + b;
-    }
+  describe('About Functions', function() {
 
-    expect(add(1, 2)).toBe(3);
-  });
+    it('should declare functions', function() {
 
-  it("should know internal variables override outer variables", function () {
-    var message = "Outer";
-
-    function getMessage() {
-      return message;
-    }
-
-    function overrideMessage() {
-      var message = "Inner";
-      return message;
-    }
-
-    expect(getMessage()).toBe('Outer');
-    expect(overrideMessage()).toBe('Inner');
-  // will look for outer variable 'message'; will return undefined if variable is not found
-    expect(message).toBe('Outer');
-  });
-
-  it("should have lexical scoping", function () {
-  // lexical scoping (static scoping): variable may only be called from within the block
-  // of code in which it is defined
-  // dynamic scope defines global variables
-    var variable = "top-level";
-
-    function parentfunction() {
-      var variable = "local";
-      function childfunction() {
-        return variable;
+      function add(a, b) {
+        return a + b;
       }
-  // will return 'top-level'
-      return childfunction();
-    }
 
-    expect(parentfunction()).toBe('local');
-  });
+      expect(add(1, 2)).toBe(3);
+    });
 
-  it("should use lexical scoping to synthesise functions", function () {
+    it('should know internal variables override outer variables', function() {
+      var message = 'Outer';
 
-    function makeMysteryFunction(makerValue)
-    {
-      var newFunction = function doMysteriousThing(param)
-      {
-        return makerValue + param;
+      function getMessage() {
+        return message;
+      }
+
+      function overrideMessage() {
+        var message = 'Inner';
+        return message;
+      }
+
+      expect(getMessage()).toBe('Outer');
+      expect(overrideMessage()).toBe('Inner');
+      // will look for outer variable 'message'; will return undefined if variable is not found
+      expect(message).toBe('Outer');
+    });
+
+    it('should have lexical scoping', function() {
+      // lexical scoping (static scoping): variable may only be called from within the block
+      // of code in which it is defined
+      // dynamic scope defines global variables
+      var variable = 'top-level';
+
+      function parentfunction() {
+        var variable = 'local';
+
+        function childfunction() {
+          return variable;
+        }
+
+        return childfunction();
+      }
+
+      expect(parentfunction()).toBe('local');
+    });
+
+    it('should use lexical scoping to synthesise functions', function() {
+
+      function makeMysteryFunction(makerValue) {
+        var newFunction = function doMysteriousThing(param) {
+          return makerValue + param;
+        };
+        return newFunction;
+      }
+
+      var mysteryFunction3 = makeMysteryFunction(3);
+      var mysteryFunction5 = makeMysteryFunction(5);
+
+      expect(mysteryFunction3(10) + mysteryFunction5(5)).toBe(23);
+    });
+
+    it('should allow extra function arguments', function() {
+
+      function returnFirstArg(firstArg) {
+        return firstArg;
+      }
+
+      expect(returnFirstArg('first', 'second', 'third')).toBe('first');
+
+      function returnSecondArg(firstArg, secondArg) {
+        return secondArg;
+      }
+
+      expect(returnSecondArg('only give first arg')).toBe(undefined);
+      // The join() method joins all elements of an array into a string
+      function returnAllArgs() {
+        var argsArray = [];
+        for (var i = 0; i < arguments.length; i++) {
+          argsArray.push(arguments[i]);
+        }
+        return argsArray.join(',');
+      }
+
+      expect(returnAllArgs('first', 'second', 'third')).toBe('first,second,third');
+    });
+
+    it('should pass functions as values', function() {
+
+      var appendRules = function(name) {
+        return name + ' rules!';
       };
-      return newFunction;
-    }
 
-    var mysteryFunction3 = makeMysteryFunction(3);
-    var mysteryFunction5 = makeMysteryFunction(5);
- // mysteryFunction3 = 3
- // mysteryFunction5 = 5
- // the second value, e.g. (10), is taken as the first input
- // makeMysteryFunction(3)(10) == 13
-    expect(mysteryFunction3(10) + mysteryFunction5(5)).toBe(23);
+      var appendDoubleRules = function(name) {
+        return name + ' totally rules!';
+      };
+
+      var praiseSinger = {
+        givePraise: appendRules
+      };
+      expect(praiseSinger.givePraise('John')).toBe('John rules!');
+
+      praiseSinger.givePraise = appendDoubleRules;
+      expect(praiseSinger.givePraise('Mary')).toBe('Mary totally rules!');
+    });
   });
-
-  it("should allow extra function arguments", function () {
-
-    function returnFirstArg(firstArg) {
-      return firstArg;
-    }
-
-    expect(returnFirstArg("first", "second", "third")).toBe('first');
-
-    function returnSecondArg(firstArg, secondArg) {
-      return secondArg;
-    }
-
-    expect(returnSecondArg("only give first arg")).toBe(undefined);
- //
-    function returnAllArgs() {
-      var argsArray = [];
-      for (var i = 0; i < arguments.length; i += 1) {
-        argsArray.push(arguments[i]);
-      }
-      return argsArray.join(",");
-    }
-
-    expect(returnAllArgs("first", "second", "third")).toBe('first,second,third');
-  });
-
-  it("should pass functions as values", function () {
-
-    var appendRules = function (name) {
-      return name + " rules!";
-    };
-
-    var appendDoubleRules = function (name) {
-      return name + " totally rules!";
-    };
-
-    var praiseSinger = { givePraise: appendRules };
-    expect(praiseSinger.givePraise("John")).toBe('John rules!');
-
-    praiseSinger.givePraise = appendDoubleRules;
-    expect(praiseSinger.givePraise("Mary")).toBe('Mary totally rules!');
-
-  });
-});
+})();
