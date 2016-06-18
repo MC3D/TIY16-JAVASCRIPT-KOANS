@@ -135,9 +135,9 @@
         })
         // flatten returns an array of ingredients
         .flatten()
-        .reduce(function(acc, i){
+        .reduce(function(acc, i) {
           if (i === 'mushrooms') {
-            return  acc + 1;
+            return acc + 1;
           }
         }, 0)
         .value();
@@ -148,73 +148,54 @@
     /*********************************************************************************/
     // UNCOMMENT FOR EXTRA CREDIT
 
+    // composite #: whole number that can be divided evenly by numbers other than 1 or itself
+    it('should find the largest prime factor of a composite number', function() {
 
-    // Sara's Example
+      var factors;
 
-    // it('should find the largest prime factor of a composite number', function() {
-    //   var composite = 3;
-    //   var compositePlus = composite + 1;
-    //
-    //   var divisors = _.range(1, compositePlus);
-    //
-    //   var divide = _.filter(divisors, function(a) {
-    //     if (composite % a === 0) {
-    //       return a;
-    //     }
-    //   }, {});
-    //
-    // });
+      function isPrime(x) {
+        for (var i = 2; i < x; i++) {
+          if (x % i === 0) {
+            return;
+          }
+        }
+        factors.push(x);
+      }
 
-    //
-    // it('should find the largest palindrome made from the product of two 3 digit numbers', function() {
-    //   // A palindrome is a word, phrase, number, or other sequence of characters which reads the same backwards or forward
-    //
+      function isComposite(x) {
+        factors = [];
+        for (var i = 2; i < x; i++) {
+          if (x % i === 0) {
+            isPrime(i);
+          }
+        }
+        return;
+      }
 
-    function palindrome() {
+      function largestPrimeFactor(x) {
+        isComposite(x);
+        if (factors.length > 0) {
+          var i = factors.pop();
+          return i;
+        } else {
+          return;
+        }
+      }
 
-    }
+      expect(largestPrimeFactor(30)).toBe(5);
+    });
 
-    //   var arr = [];
-    //   for (var i = 999; i > 100; i--) {
-    //     for (var j = 999; j > 100; j--) {
-    //       var mul = j * i;
-    //       if (isPalin(mul)) {
-    //         arr.push(j * i);
-    //       }
-    //     }
-    //
-    //     return Math.max.apply(Math, arr);
-    //   }
-    //
-    //   function isPalin(i) {
-    //     return i.toString() == i.toString().split('').reverse().join('');
-    //   }
-    //
-    // });
+    // A palindrome is a word, phrase, number, or other sequence of characters which reads the same backwards or forward
+    it('should find the largest palindrome made from the product of two 3 digit numbers', function() {
 
-    //  Mathieu Agopian's Example
 
-    //   var palindrome = 0;
-    //
-    //   function is_palindrome(x) {
-    //     str_num = '' + x;
-    //     reversed = str_num.split('').reverse().join('');
-    //     return str_num === reversed;
-    //   }
-    //   for (var i = 999; i > 99; i--) {
-    //     for (var j = 999; j > 99; j--) {
-    //       var num = i * j;
-    //       if (num < palindrome) {
-    //         break;
-    //       }
-    //       if (is_palindrome(num)) {
-    //         palindrome = num;
-    //       }
-    //     }
-    //   }
-    //   expect(palindrome).toBe(906609);
-    // });
-    //
+
+      function palindrome() {
+
+      }
+
+    });
+
     // it('should find the smallest number divisible by each of the numbers 1 to 20', function () {
     //
     //
@@ -242,21 +223,21 @@
     //   var diff = sumOfSquares / squareOfSums;
     // });
 
-    it('should find the 10001st prime', function() {
-
-      var prime = primeList(10001);
-
-      function primeList(n) {
-        return _.range(n).
-        filter(function(i) {
-          return (i > 1) && _.range(Math.floor(Math.sqrt(i)) + 1).
-          every(function(x, y) {
-            return (y < 2) || i % y !== 0;
-          });
-        });
-      }
-
-      expect(prime.pop()).toBe(9973);
+    // it('should find the 10001st prime', function() {
+    //
+    //   var prime = primeList(10001);
+    //
+    //   function primeList(n) {
+    //     return _.range(n).
+    //     filter(function(i) {
+    //       return (i > 1) && _.range(Math.floor(Math.sqrt(i)) + 1).
+    //       every(function(x, y) {
+    //         return (y < 2) || i % y !== 0;
+    //       });
+    //     });
+    //   }
+    //
+    //   expect(prime.pop()).toBe(9973);
 
       // jake .. i want to use math.floor instead of ~~
 
@@ -277,7 +258,7 @@
 
 
 
-    });
+    // });
 
   });
 })();
