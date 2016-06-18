@@ -188,11 +188,31 @@
     // A palindrome is a word, phrase, number, or other sequence of characters which reads the same backwards or forward
     it('should find the largest palindrome made from the product of two 3 digit numbers', function() {
 
+      var palindromes;
+      var str1, str2;
 
+      function isPalindrome(x){
+        str1 = x.toString();
+        str2 = x.toString().split('').reverse().join('');
 
-      function palindrome() {
-
+        if (str1 === str2){
+          palindromes.push(x);
+        }
+        return;
       }
+
+      function largestPalindrome(){
+        palindromes = [];
+        for(var i = 100; i < 1000; i++){
+          for(var j = 100; j < 1000; j++){
+            var product = i * j;
+            isPalindrome(product);
+          }
+        }
+        return Math.max(...palindromes);
+      }
+      
+      expect(largestPalindrome()).toBe(906609);
 
     });
 
