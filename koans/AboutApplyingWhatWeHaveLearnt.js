@@ -253,6 +253,16 @@
 
       // stops with [2, 2, 3] b/c x is now 1 and not divisible by any whole number; subsequent modulus tests will fail
 
+      // var getFactors = function(x){
+      //   for(var i = 2; i <= x; i++){
+      //     while((x % i) === 0) {
+      //       factors.push(i);
+      //       x /= i;
+      //     }
+      //   }
+      //   return factors;
+      // };
+
       var getFactors = function(x){
         for(var i = 2; i <= x; i++){
           while((x % i) === 0) {
@@ -265,7 +275,8 @@
 
       // returns factors === [11, 2, 2, 3, 13, 2, 7, 3, 5, 2, 2, 2, 2, 17, 2, 3, 3, 19, 2, 2, 5]
       _.each(numbers, getFactors);
-      
+
+
 
       // expect(smallestNumber.toBe(232,792,560)
     });
