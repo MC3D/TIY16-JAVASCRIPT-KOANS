@@ -191,57 +191,63 @@
       var palindromes;
       var str1, str2;
 
-      function isPalindrome(x){
+      function isPalindrome(x) {
         str1 = x.toString();
         str2 = x.toString().split('').reverse().join('');
 
-        if (str1 === str2){
+        if (str1 === str2) {
           palindromes.push(x);
         }
         return;
       }
 
-      function largestPalindrome(){
+      function largestPalindrome() {
         palindromes = [];
-        for(var i = 100; i < 1000; i++){
-          for(var j = 100; j < 1000; j++){
+        for (var i = 100; i < 1000; i++) {
+          for (var j = 100; j < 1000; j++) {
             var product = i * j;
             isPalindrome(product);
           }
         }
         return Math.max(...palindromes);
       }
-      
+
       expect(largestPalindrome()).toBe(906609);
 
     });
 
-    // it('should find the smallest number divisible by each of the numbers 1 to 20', function () {
-    //
-    //
-    // });
+    it('should find the smallest number divisible by each of the numbers 1 to 20', function() {
+      // returns [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
+      var numbers = _.range(1, 21);
 
-    // Jonathan's Example
 
-    // it('should find the difference between the sum of the squares and the square of the sums', function() {
-    //
-    //   var nums = [2, 3, 4, 5];
-    //
-    //   var sumOfSquares = _(nums).chain()
-    //     .map(function(a) {
-    //       return a * a;
-    //     })
-    //     .reduce(function(a, b) {
-    //       return a + b
-    //     })
-    //     .value();
-    //
-    //   var squareOfSums = Math.pow(_.reduce(nums, function(a) {
-    //     return a + a;
-    //   }), 2);
-    //
-    //   var diff = sumOfSquares / squareOfSums;
-    // });
+      // expect(smallestNumber.toBe(232,792,560)
+    });
+
+    it('should find the difference between the sum of the squares and the square of the sums', function() {
+
+      var nums = _.range(1, 6); // creates [1, 2, 3, 4, 5]
+
+      var sumSquares = _(nums).chain()
+        // return new array of squares
+        .map(function(x) {
+          return x * x; // returns [1, 4, 9, 16, 25]
+        })
+        // total squares
+        .reduce(function(a, b) {
+          return a + b; // returns 55
+        })
+        .value();
+
+      var squareSums = Math.pow(
+        _.reduce(nums, function(a, b) {
+          return a + b; // returns 15
+        }), 2); // returns 225
+
+      var difference = sumSquares - squareSums; // 55 - 225 = -170
+
+      expect(difference).toBe(-170);
+    });
 
     // it('should find the 10001st prime', function() {
     //
@@ -259,21 +265,21 @@
     //
     //   expect(prime.pop()).toBe(9973);
 
-      // jake .. i want to use math.floor instead of ~~
+    // jake .. i want to use math.floor instead of ~~
 
-      // breaking it down
-      // see ariya.ofilabs.com/2013/07/sequences-using-javascript-array.html for refresher explanations
-      // return Array.apply(0, Array(n)) creates an array; length is 10001; each item is undefined
-      //  e.g. Array.apply(0, Array(3)) gives you [undefined, undefined, undefined]
-      //  when array receives an array with an empty element, it gets converted into undefined and
-      //    thereby eliminates any holes in the array
-      // map(function (x,y){return y}) changes each undefined to item location; e.g. Array[5] is 5
-      // map calls callbackfn once for each element in the array
-      // callbackfn is called with three arguments
-      //    the value of the element, the index of the element, and the object being traversed
-      //    x represents the value of the element, y represents the index of the element
-      // double tilde (~~) to make sure you have an integer
-      // ~ is doing -(N+1)
+    // breaking it down
+    // see ariya.ofilabs.com/2013/07/sequences-using-javascript-array.html for refresher explanations
+    // return Array.apply(0, Array(n)) creates an array; length is 10001; each item is undefined
+    //  e.g. Array.apply(0, Array(3)) gives you [undefined, undefined, undefined]
+    //  when array receives an array with an empty element, it gets converted into undefined and
+    //    thereby eliminates any holes in the array
+    // map(function (x,y){return y}) changes each undefined to item location; e.g. Array[5] is 5
+    // map calls callbackfn once for each element in the array
+    // callbackfn is called with three arguments
+    //    the value of the element, the index of the element, and the object being traversed
+    //    x represents the value of the element, y represents the index of the element
+    // double tilde (~~) to make sure you have an integer
+    // ~ is doing -(N+1)
 
 
 
