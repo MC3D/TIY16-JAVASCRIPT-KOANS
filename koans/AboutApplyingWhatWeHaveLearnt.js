@@ -249,42 +249,29 @@
       expect(difference).toBe(-170);
     });
 
-    // it('should find the 10001st prime', function() {
-    //
-    //   var prime = primeList(10001);
-    //
-    //   function primeList(n) {
-    //     return _.range(n).
-    //     filter(function(i) {
-    //       return (i > 1) && _.range(Math.floor(Math.sqrt(i)) + 1).
-    //       every(function(x, y) {
-    //         return (y < 2) || i % y !== 0;
-    //       });
-    //     });
-    //   }
-    //
-    //   expect(prime.pop()).toBe(9973);
+    it('should find the 10001st prime', function() {
 
-    // jake .. i want to use math.floor instead of ~~
+      var primes = [];
 
-    // breaking it down
-    // see ariya.ofilabs.com/2013/07/sequences-using-javascript-array.html for refresher explanations
-    // return Array.apply(0, Array(n)) creates an array; length is 10001; each item is undefined
-    //  e.g. Array.apply(0, Array(3)) gives you [undefined, undefined, undefined]
-    //  when array receives an array with an empty element, it gets converted into undefined and
-    //    thereby eliminates any holes in the array
-    // map(function (x,y){return y}) changes each undefined to item location; e.g. Array[5] is 5
-    // map calls callbackfn once for each element in the array
-    // callbackfn is called with three arguments
-    //    the value of the element, the index of the element, and the object being traversed
-    //    x represents the value of the element, y represents the index of the element
-    // double tilde (~~) to make sure you have an integer
-    // ~ is doing -(N+1)
+      function isPrime(x) {
+        for (var i = 2; i < x; i++) {
+          if (x % i === 0) {
+            return;
+          }
+        }
+        primes.push(x);
+      }
 
+      function generatePrimes() {
+        for (var i = 3; primes.length < 10000; i++) {
+          isPrime(i);
+        }
 
+        return primes;
+      }
 
+      expect(generatePrimes().pop()).toBe(104743);
 
-    // });
-
+    });
   });
 })();
