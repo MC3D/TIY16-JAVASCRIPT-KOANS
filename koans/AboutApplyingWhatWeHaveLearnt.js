@@ -217,9 +217,55 @@
     });
 
     it('should find the smallest number divisible by each of the numbers 1 to 20', function() {
-      // returns [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
-      var numbers = _.range(1, 21);
+      // returns [11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
+      var numbers = _.range(11, 21);
+      var factors = [];
 
+      // var getFactors = function(12){
+      //   for(var i = 2; i <= 12; i++){
+      //     while((12 % 2) === 0) {
+      //       factors.push(2); (factors === [2])
+      //       12 /= 2; (changes 12 to 6)
+      //     }
+      //   }
+      //   return factors;
+      // };
+
+      // var getFactors = function(12){
+      //   for(var i = 2; i <= 12; i++){
+      //     while((6 % 2) === 0) {
+      //       factors.push(2); (factors === [2, 2])
+      //       6 /= 2; (changes 6 to 3)
+      //     }
+      //   }
+      //   return factors;
+      // };
+
+      // var getFactors = function(12){
+      //   for(var i = 2; i <= 12; i++){
+      //     while((3 % 3) === 0) {
+      //       factors.push(3); (factors === [2, 2, 3])
+      //       3 /= 3; (changes 3 to 1)
+      //     }
+      //   }
+      //   return factors;
+      // };
+
+      // stops with [2, 2, 3] b/c x is now 1 and not divisible by any whole number; subsequent modulus tests will fail
+
+      var getFactors = function(x){
+        for(var i = 2; i <= x; i++){
+          while((x % i) === 0) {
+            factors.push(i);
+            x /= i;
+          }
+        }
+        return factors;
+      };
+
+      // returns factors === [11, 2, 2, 3, 13, 2, 7, 3, 5, 2, 2, 2, 2, 17, 2, 3, 3, 19, 2, 2, 5]
+      _.each(numbers, getFactors);
+      
 
       // expect(smallestNumber.toBe(232,792,560)
     });
