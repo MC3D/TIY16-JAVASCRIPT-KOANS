@@ -221,51 +221,9 @@
       var numbers = _.range(11, 21);
       var factors = [];
 
-      // var getFactors = function(12){
-      //   for(var i = 2; i <= 12; i++){
-      //     while((12 % 2) === 0) {
-      //       factors.push(2); (factors === [2])
-      //       12 /= 2; (changes 12 to 6)
-      //     }
-      //   }
-      //   return factors;
-      // };
-
-      // var getFactors = function(12){
-      //   for(var i = 2; i <= 12; i++){
-      //     while((6 % 2) === 0) {
-      //       factors.push(2); (factors === [2, 2])
-      //       6 /= 2; (changes 6 to 3)
-      //     }
-      //   }
-      //   return factors;
-      // };
-
-      // var getFactors = function(12){
-      //   for(var i = 2; i <= 12; i++){
-      //     while((3 % 3) === 0) {
-      //       factors.push(3); (factors === [2, 2, 3])
-      //       3 /= 3; (changes 3 to 1)
-      //     }
-      //   }
-      //   return factors;
-      // };
-
-      // stops with [2, 2, 3] b/c x is now 1 and not divisible by any whole number; subsequent modulus tests will fail
-
-      // var getFactors = function(x){
-      //   for(var i = 2; i <= x; i++){
-      //     while((x % i) === 0) {
-      //       factors.push(i);
-      //       x /= i;
-      //     }
-      //   }
-      //   return factors;
-      // };
-
-      var getFactors = function(x){
-        for(var i = 2; i <= x; i++){
-          while((x % i) === 0) {
+      var getFactors = function(x) {
+        for (var i = 2; i <= x; i++) {
+          while ((x % i) === 0) {
             factors.push(i);
             x /= i;
           }
@@ -276,9 +234,34 @@
       // returns factors === [11, 2, 2, 3, 13, 2, 7, 3, 5, 2, 2, 2, 2, 17, 2, 3, 3, 19, 2, 2, 5]
       _.each(numbers, getFactors);
 
+      var uniqueFactors = [...new Set(factors)]; // returns unique array [11, 2, 3, 13, 7, 5, 17, 19] (ES6)
+
+      var array = [];
+
+      var getCount = function(a) {
+        var currentStreak = 0, highestStreak = 0;
+        for (var i = 0; i < factors.length; i++) {
+          if (factors[i] === a) {
+            currentStreak++;
+          } else {
+            currentStreak = 0;
+          }
+
+          if(currentStreak > highestStreak){
+            highestStreak = currentStreak;
+          }
+        }
+        array.push(Math.pow(a, highestStreak));
+      };
 
 
-      // expect(smallestNumber.toBe(232,792,560)
+      _.each(uniqueFactors, getCount);
+
+      var smallestDivisibleNumber = _.reduce(array, function(a,b){
+        return a * b;
+      });
+
+      expect(smallestDivisibleNumber).toBe(232792560);
     });
 
     it('should find the difference between the sum of the squares and the square of the sums', function() {
