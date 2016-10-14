@@ -128,21 +128,28 @@
 
       /* chain() together map(), flatten() and reduce() */
 
-      var sum = _(products).chain()
+      var ingredientObj = _(products).chain()
         // map returns an array of 5 arrays of ingredients
         .map(function(product) {
           return product.ingredients;
         })
         // flatten returns an array of ingredients
         .flatten()
-        .reduce(function(acc, i) {
-          if (i === 'mushrooms') {
-            return acc + 1;
+        .reduce(function(ingredientObj, ingredient) {
+          ingredientCount[ingredient] = (ingredientCount[ingredient] || 0) + 1;
+
+          if (ingredientObj[ingredient]) {
+            ingredientObj[ingredient] += 1;
+          } else {
+            ingredientObj[ingredient] = 1;
           }
-        }, 0)
+          
+          return ingredientObj;
+
+        }, {})
         .value();
 
-      expect(ingredientCount.mushrooms).toBe(sum);
+      expect(ingredientCount.mushrooms).toBe(ingredientObj.mushrooms);
     });
 
     /*********************************************************************************/
@@ -239,7 +246,8 @@
       var array = [];
 
       var getCount = function(a) {
-        var currentStreak = 0, highestStreak = 0;
+        var currentStreak = 0,
+          highestStreak = 0;
         for (var i = 0; i < factors.length; i++) {
           if (factors[i] === a) {
             currentStreak++;
@@ -247,17 +255,16 @@
             currentStreak = 0;
           }
 
-          if(currentStreak > highestStreak){
+          if (currentStreak > highestStreak) {
             highestStreak = currentStreak;
           }
         }
         array.push(Math.pow(a, highestStreak));
       };
 
-
       _.each(uniqueFactors, getCount);
 
-      var smallestDivisibleNumber = _.reduce(array, function(a,b){
+      var smallestDivisibleNumber = _.reduce(array, function(a, b) {
         return a * b;
       });
 
