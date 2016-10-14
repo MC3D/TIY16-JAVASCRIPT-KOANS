@@ -128,7 +128,7 @@
 
       /* chain() together map(), flatten() and reduce() */
 
-      var ingredientObj = _(products).chain()
+      var sum = _(products).chain()
         // map returns an array of 5 arrays of ingredients
         .map(function(product) {
           return product.ingredients;
@@ -136,6 +136,7 @@
         // flatten returns an array of ingredients
         .flatten()
         .reduce(function(ingredientObj, ingredient) {
+
           ingredientCount[ingredient] = (ingredientCount[ingredient] || 0) + 1;
 
           if (ingredientObj[ingredient]) {
@@ -143,13 +144,15 @@
           } else {
             ingredientObj[ingredient] = 1;
           }
-          
+
           return ingredientObj;
 
         }, {})
         .value();
 
-      expect(ingredientCount.mushrooms).toBe(ingredientObj.mushrooms);
+
+
+      expect(ingredientCount.mushrooms).toBe(sum.mushrooms);
     });
 
     /*********************************************************************************/
