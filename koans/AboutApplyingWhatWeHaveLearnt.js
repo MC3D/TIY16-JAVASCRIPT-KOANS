@@ -138,19 +138,12 @@
         .reduce(function(ingredientObj, ingredient) {
 
           ingredientCount[ingredient] = (ingredientCount[ingredient] || 0) + 1;
-
-          if (ingredientObj[ingredient]) {
-            ingredientObj[ingredient] += 1;
-          } else {
-            ingredientObj[ingredient] = 1;
-          }
+          ingredientObj[ingredient] = (ingredientObj[ingredient] || 0 ) + 1;
 
           return ingredientObj;
 
         }, {})
         .value();
-
-
 
       expect(ingredientCount.mushrooms).toBe(sum.mushrooms);
     });
