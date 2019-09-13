@@ -127,22 +127,12 @@
       };
 
       /* chain() together map(), flatten() and reduce() */
-
       var sum = _(products).chain()
         // map returns an array of 5 arrays of ingredients
-        .map(function(product) {
-          return product.ingredients;
-        })
-        // flatten returns an array of ingredients
+        .map(product => product.ingredients)
+        // flatten combines the 5 arrays into one
         .flatten()
-        .reduce(function(ingredientObj, ingredient) {
-
-          ingredientCount[ingredient] = (ingredientCount[ingredient] || 0) + 1;
-          ingredientObj[ingredient] = (ingredientObj[ingredient] || 0 ) + 1;
-
-          return ingredientObj;
-
-        }, {})
+        .reduce((acc, i) => {acc[i] = (acc[i] || 0 ) + 1; return acc;}, {})
         .value();
 
       expect(ingredientCount.mushrooms).toBe(sum.mushrooms);
