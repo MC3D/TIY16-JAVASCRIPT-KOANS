@@ -122,28 +122,16 @@
     });
 
     it('should count the ingredient occurrence (functional)', function() {
-      var ingredientCount = {};
+//       var ingredientCount = {};
 
       /* chain() together map(), flatten() and reduce() */
-//       var sum = _(products).chain()
-//         // map returns an array of 5 arrays of ingredients
-//         .map(product => product.ingredients)
-//         // flatten combines the 5 arrays into one
-//         .flatten()
-//         .reduce((acc, i) => {acc[i] = (acc[i] || 0 ) + 1; return acc;}, {})
-//         .value();
-      
-//       substitution of each for reduce (it's cleaner in my opinion)
-      
-      var sum = _(products).chain()
+      let ingredientCount = _(products).chain()
         // map returns an array of 5 arrays of ingredients
         .map(product => product.ingredients)
         // flatten combines the 5 arrays into one
         .flatten()
-        .each(ingredient => ingredientCount.ingredient = (ingredientCount.ingredient || 0) + 1)
+        .reduce((acc, i) => {acc[i] = (acc[i] || 0 ) + 1; return acc;}, {})
         .value();
-      
-      
 
       expect(ingredientCount.mushrooms).toBe(2);
     });
